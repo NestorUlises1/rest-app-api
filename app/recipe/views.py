@@ -52,7 +52,10 @@ class TagViewSet(mixins.DestroyModelMixin,
 
 
 
-class IngredientViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+class IngredientViewSet(mixins.DestroyModelMixin,
+                         mixins.UpdateModelMixin,
+                         mixins.ListModelMixin,
+                         viewsets.GenericViewSet):
     #Manage Ingredient in the database
     serializer_class= serializers.IngredientSerializer
     queryset= Ingredient.objects.all()
