@@ -5,11 +5,21 @@ from rest_framework import serializers
 from core.models import (
     Recipe,
     Tag,
+    Ingredient,
 )
 
 
+class IngredientSerializer(serializers.ModelSerializer):
+    #Serializer for tags
+
+    class Meta:
+        model= Ingredient
+        fields= ['id', 'name']
+        read_only_fields= ['id']
+
+
 class TagSerializer(serializers.ModelSerializer):
-    #Seriañizer for tags
+    #Serializer for tags
 
     class Meta:
         model= Tag
@@ -49,7 +59,7 @@ class RecipeSerializer(serializers.ModelSerializer):
             instance.tags.clear()
             self._get_or_create_tags(tags, instance)
 
-        for attr, value in validated_data:
+        for attr, value in validated_data.items():
             setattr(instance, attr, value)
 
         instance.save()
